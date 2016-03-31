@@ -53,6 +53,22 @@ function UtilService($window) {
           url.protocol === o.protocol;
       });
       return (origins.length >= 1);
+    },
+
+    getTagsTree(tags){
+      var tagMap = {};
+      angular.forEach(tags, function (tag) {
+        tag.children = [];
+        tagMap[tag._id] = tag;
+      });
+      angular.forEach(tagMap, function (tag, id) {
+        if (tag.parent) {
+          tagMap[tag.parent].children.push(tag);
+        }
+      });
+      return tagMap.values.filter(function(tag){
+        return !!!tag.parent;
+      });
     }
   };
 
