@@ -61,13 +61,13 @@
     }
   }
 
-  angular.module('codingQuizApp')
+  /*angular.module('codingQuizApp')
     .component('questionList', {
       templateUrl: 'app/question/questionList.html',
       controller: QuestionListComponent
   }).component('questionDetail', {
       templateUrl: 'app/question/questionDetail.html',
       controller: QuestionDetailComponent
-  });
+  });*/
 
 })();

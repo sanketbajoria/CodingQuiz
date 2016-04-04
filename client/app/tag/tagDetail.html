@@ -1,19 +1,25 @@
-<form name="tagForm" novalidate role="form">
-  <div class="form-group">
-    <label for="name">Name:</label>
-    <input type="text" class="form-control" id="name" name="name" ng-model="$ctrl.tag.name" required>
-  </div>
-  <div class="form-group">
-    <label for="slug">Slug:</label>
-    <input type="text" class="form-control" id="slug" name="slug" ng-model="$ctrl.tag.slug">
-  </div>
-  <div class="form-group">
-    <label for="description">Description:</label>
-    <textarea id="description" name="description" ng-model="$ctrl.tag.description"></textarea>
-  </div>
-  <div class="form-group">
-    <label for="parent">Parent:</label>
-    <select ng-model="$ctrl.tag.parent" name="parent" id="parent" ng-options="tag.label for tag in $ctrl.getTagOptions()"></select>
-  </div>
-  <button type="submit" class="btn btn-default" ng-disabled="!tagForm.$valid" ng-click="$ctrl.saveTag()">Submit</button>
-</form>
+<ion-view hide-nav-bar="true">
+  <ion-content>
+    <form name="tagForm" novalidate role="form">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name" ng-model="vm.tag.name" required>
+      </div>
+      <div class="form-group">
+        <label for="slug">Slug:</label>
+        <input type="text" class="form-control" id="slug" name="slug" ng-model="vm.tag.slug">
+      </div>
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" ng-model="vm.tag.description"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="parent">Parent:</label>
+        <select ng-model="vm.tag.parent" name="parent" id="parent"
+                ng-options="tag.label for tag in vm.Util.getTagOptions(vm._tags)"></select>
+      </div>
+      <button type="submit" class="btn btn-default" ng-disabled="!tagForm.$valid" ng-click="vm.saveTag()">Submit
+      </button>
+    </form>
+  </ion-content>
+</ion-view>

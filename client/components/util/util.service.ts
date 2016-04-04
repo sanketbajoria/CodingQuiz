@@ -55,20 +55,36 @@ function UtilService($window) {
       return (origins.length >= 1);
     },
 
-    getTagsTree(tags){
+    getTagTree(tags){
       var tagMap = {};
       angular.forEach(tags, function (tag) {
-        tag.children = [];
+        tag.tree = [];
         tagMap[tag._id] = tag;
       });
       angular.forEach(tagMap, function (tag, id) {
         if (tag.parent) {
-          tagMap[tag.parent].children.push(tag);
+          tagMap[tag.parent].tree.push(tag);
         }
       });
-      return tagMap.values.filter(function(tag){
+      return Object.keys(tagMap).map(function(k){return tagMap[k];}).filter(function(tag){
         return !!!tag.parent;
       });
+    },
+
+    getTagOptions(tags) {
+      var tagOptions = [];
+      this.mapTagOptions(this.getTagTree(tags), 0, tagOptions);
+      return tagOptions;
+    },
+
+    mapTagOptions(tags, level, tagOptions) {
+      if (angular.isArray(tags)) {
+        angular.forEach(tags, function (tag) {
+          tag.label = Array(level + 1).join(" ") + tag.name
+          tagOptions.push(tag);
+          this.mapTagOptions(tag.tree, level + 1, tagOptions);
+        }, this);
+      }
     }
   };
 

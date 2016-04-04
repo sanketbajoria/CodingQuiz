@@ -13,6 +13,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(client) app/vendor.css -->
       <!-- bower:css -->
+      <link rel="stylesheet" href="bower_components/ionic/css/ionic.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
@@ -27,9 +28,16 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <navbar></navbar>
-    <div ui-view=""></div>
-    <footer></footer>
+    <ion-nav-bar class="bar-stable">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+    </ion-nav-bar>
+    <!--
+      The views will be rendered in the <ion-nav-view> directive below
+      Templates are in the /templates folder (but you could also
+      have templates inline in this html file if you'd like).
+    -->
+    <ion-nav-view></ion-nav-view>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
@@ -48,16 +56,19 @@
     <![endif]-->
     <!-- build:js({client,node_modules}) app/vendor.js -->
       <!-- bower:js -->
-      <script src="bower_components/jquery/dist/jquery.js"></script>
       <script src="bower_components/angular/angular.js"></script>
-      <script src="bower_components/angular-resource/angular-resource.js"></script>
-      <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+      <script src="bower_components/angular-animate/angular-animate.js"></script>
       <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-      <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-      <script src="bower_components/lodash/dist/lodash.compat.js"></script>
-      <script src="bower_components/angular-socket-io/socket.js"></script>
       <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-      <script src="bower_components/angular-validation-match/dist/angular-validation-match.min.js"></script>
+      <script src="bower_components/ionic/js/ionic.js"></script>
+      <script src="bower_components/ionic/js/ionic-angular.js"></script>
+      <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+      <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+      <script src="bower_components/angular-resource/angular-resource.js"></script>
+      <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+      <script src="bower_components/angular-validation-match/dist/angular-input-match.min.js"></script>
+      <script src="bower_components/angular-socket-io/socket.js"></script>
+      <script src="bower_components/ion-tree-list/ion-tree-list.js"></script>
       <!-- endbower -->
       <script src="socket.io-client/socket.io.js"></script>
     <!-- endbuild -->
@@ -67,16 +78,20 @@
       <script src="app/admin/admin.module.js"></script>
       <script src="components/auth/auth.module.js"></script>
       <script src="components/util/util.module.js"></script>
-      <script src="components/auth/router.decorator.js"></script>
+      <script src="components/auth/auth.service.js"></script>
       <script src="app/admin/admin.controller.js"></script>
       <script src="app/account/account.js"></script>
       <script src="app/admin/admin.router.js"></script>
       <script src="app/main/main.controller.js"></script>
       <script src="app/main/main.js"></script>
+      <script src="app/question/question.controller.js"></script>
+      <script src="app/question/question.js"></script>
+      <script src="app/tag/tag.controller.js"></script>
+      <script src="app/tag/tag.js"></script>
       <script src="app/account/settings/settings.controller.js"></script>
-      <script src="components/auth/auth.service.js"></script>
-      <script src="components/auth/interceptor.service.js"></script>
       <script src="app/account/login/login.controller.js"></script>
+      <script src="components/auth/interceptor.service.js"></script>
+      <script src="components/auth/router.decorator.js"></script>
       <script src="components/auth/user.service.js"></script>
       <script src="components/footer/footer.directive.js"></script>
       <script src="components/modal/modal.service.js"></script>

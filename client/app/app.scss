@@ -19,7 +19,35 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 /* inject:scss */
 @import 'admin/admin.scss';
 @import 'main/main.scss';
+@import 'question/question.scss';
+@import 'tag/tag.scss';
 @import '../components/footer/footer.scss';
 @import '../components/modal/modal.scss';
 @import '../components/oauth-buttons/oauth-buttons.scss';
 /* endinject */
+
+.login .placeholder-icon:first-child {
+  padding-right: 20px;
+}
+.login a:first-child{
+  float:left;
+}
+.login a:last-child{
+  float:right;
+}
+.social-buttons{
+  clear: both;
+  padding-top: 16px;
+}
+.logo{
+  text-align: center;
+  margin-bottom: 24px;
+}
+.logo img{
+  max-width: 30%;
+  width: 120px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+

@@ -1,12 +1,5 @@
-<div>This is the tag view.</div>
-{
-  name:
-  description:
-  slug:
-  children: []
-}
-<ul>
-  <li ng-repeat="tag in $ctrl.tags">
-    {{tag.name}}
-  </li>
-</ul>
+<ion-view hide-nav-bar="true">
+  <ion-content>
+    <ion-tree-list items="vm.tagTree"></ion-tree-list>
+  </ion-content>
+</ion-view>
