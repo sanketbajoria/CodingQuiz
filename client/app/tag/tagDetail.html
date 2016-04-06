@@ -1,25 +1,35 @@
 <ion-view hide-nav-bar="true">
   <ion-content>
-    <form name="tagForm" novalidate role="form">
-      <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" class="form-control" id="name" name="name" ng-model="vm.tag.name" required>
-      </div>
-      <div class="form-group">
-        <label for="slug">Slug:</label>
-        <input type="text" class="form-control" id="slug" name="slug" ng-model="vm.tag.slug">
-      </div>
-      <div class="form-group">
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" ng-model="vm.tag.description"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="parent">Parent:</label>
-        <select ng-model="vm.tag.parent" name="parent" id="parent"
-                ng-options="tag.label for tag in vm.Util.getTagOptions(vm._tags)"></select>
-      </div>
-      <button type="submit" class="btn btn-default" ng-disabled="!tagForm.$valid" ng-click="vm.saveTag()">Submit
-      </button>
-    </form>
+    <div class="list">
+      <form name="tagForm" novalidate role="form">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Name</span>
+          <input type="text" placeholder="John" id="name" name="name" ng-model="vm.tag.name" required>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Slug</span>
+          <input type="text" placeholder="john" id="slug" name="slug" ng-model="vm.tag.slug" required>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Description</span>
+          <textarea id="description" name="description" ng-model="vm.tag.description"></textarea>
+        </label>
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Parent
+          </div>
+          <select ng-model="vm.tag.parent" name="parent" id="parent">
+            <option value="" ng-selected="!vm.tag.parent">None</option>
+            <option ng-repeat="tag in vm.tagOption" value={{tag._id}} ng-selected="vm.tag.parent==tag._id" ng-bind-html="tag.label"></option>
+          </select>
+        </label>
+
+        <div class="padding">
+          <button type="submit" class="button button-block button-positive" ng-disabled="!tagForm.$valid || tagForm.$pristine"
+                  ng-click="vm.saveTag()">Submit
+          </button>
+        </div>
+      </form>
+    </div>
   </ion-content>
 </ion-view>

@@ -1,0 +1,29 @@
+<link type="text/css" rel="stylesheet" ng-href="{{baseUrl}}/ion-tree-list.css"/>
+
+<script type="text/ng-template" id="item_default_renderer">
+    <span class="symbol">
+        <i class="icon" ng-if="item.tree.length > 0" ng-class="item.tree.collapsed ? 'ion-arrow-right-b' : 'ion-arrow-down-b'"></i>
+    </span>
+    {{item.name}}
+    <button class="button button-icon icon-right ion-edit" ng-click="editItem(item, $event)" ng-if="showEdit"></button>
+</script>
+
+<script type="text/ng-template" id="items_renderer">
+    <div class="item item-button-right item depth-{{item.depth}}"
+              ng-click="toggleCollapse(item); emitEvent(item)"
+              ng-include="templateUrl">
+    </div>
+    <div class="list ion-tree" ng-model="item.tree"
+              ng-repeat="item in item.tree"
+              ng-hide="item.collapsed"
+              ng-include="'items_renderer'">
+
+    </div>
+</script>
+
+<div class="list ion-tree" ng-model="items"
+          ng-repeat="item in items"
+          ng-hide="item.collapsed"
+          ng-include="'items_renderer'">
+</div>
+

@@ -3,7 +3,7 @@
 angular.module('codingQuizApp')
   .config(function ($stateProvider) {
     $stateProvider
-      .state('tag', {
+      .state('tags', {
         url: '/tags',
         templateUrl: 'app/tag/tagList.html',
         controller: 'TagListController',
@@ -16,7 +16,7 @@ angular.module('codingQuizApp')
         controllerAs: 'vm'
       })
       .state('addTag', {
-        url: '/tag/new',
+        url: '/tag',
         templateUrl: 'app/tag/tagDetail.html',
         controller: 'TagDetailController',
         controllerAs: 'vm'

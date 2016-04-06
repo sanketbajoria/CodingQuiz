@@ -71,18 +71,20 @@ function UtilService($window) {
       });
     },
 
-    getTagOptions(tags) {
+    getTagOptions(tags, excludeTag) {
       var tagOptions = [];
-      this.mapTagOptions(this.getTagTree(tags), 0, tagOptions);
+      this.mapTagOptions(this.getTagTree(tags), 0, tagOptions, excludeTag);
       return tagOptions;
     },
 
-    mapTagOptions(tags, level, tagOptions) {
+    mapTagOptions(tags, level, tagOptions, excludeTag) {
       if (angular.isArray(tags)) {
         angular.forEach(tags, function (tag) {
-          tag.label = Array(level + 1).join(" ") + tag.name
-          tagOptions.push(tag);
-          this.mapTagOptions(tag.tree, level + 1, tagOptions);
+          if(!excludeTag   || tag._id !== excludeTag){
+            tag.label = Array(level + 1).join("&nbsp;&nbsp;") + tag.name
+            tagOptions.push(tag);
+            this.mapTagOptions(tag.tree, level + 1, tagOptions, excludeTag);
+          }
         }, this);
       }
     }
