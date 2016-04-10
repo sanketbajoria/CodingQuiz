@@ -11,7 +11,8 @@ angular.module('codingQuizApp', ['ionic',
   'ui.router',
   'ui.bootstrap',
   'validation.match',
-  'ion-tree-list'
+  'ion-tree-list',
+  'ngMessages'
 ])/*
   .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -29,9 +30,21 @@ angular.module('codingQuizApp', ['ionic',
     });
   })*/
 
-  .config(function($urlRouterProvider, $locationProvider) {
+  .config(function($urlRouterProvider, $locationProvider, $httpProvider, $animateProvider) {
     $urlRouterProvider
       .otherwise('/');
 
     $locationProvider.html5Mode(true);
+
+    $animateProvider.classNameFilter(/animate/);
+
+    $httpProvider.interceptors.push(function ($q) {
+      return {
+        'request': function (config) {
+          console.log(config.url);
+          return config || $q.when(config);
+        }
+      }
+    });
   });
+

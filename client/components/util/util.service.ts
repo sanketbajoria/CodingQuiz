@@ -87,6 +87,13 @@ function UtilService($window) {
           }
         }, this);
       }
+    },
+
+    normalizedValue(val){
+      if(val==="" || val===null || val===undefined){
+        return false;
+      }
+      return val;
     }
   };
 

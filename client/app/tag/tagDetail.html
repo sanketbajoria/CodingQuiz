@@ -1,14 +1,15 @@
-<ion-view hide-nav-bar="true">
+<ion-view view-title="Tag Detail" cache-view="false">
+  <ion-nav-back-button></ion-nav-back-button>
   <ion-content>
-    <div class="list">
-      <form name="tagForm" novalidate role="form">
-        <label class="item item-input item-stacked-label">
+    <div class="list tag-detail">
+      <form name="tagForm" novalidate role="form" form-validation="{uniqueTag: uniqueTag}">
+        <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : tagForm.name.$invalid && tagForm.$submitted}">
           <span class="input-label">Name</span>
           <input type="text" placeholder="John" id="name" name="name" ng-model="vm.tag.name" required>
         </label>
-        <label class="item item-input item-stacked-label">
+        <label class="item item-input item-stacked-label item-readonly">
           <span class="input-label">Slug</span>
-          <input type="text" placeholder="john" id="slug" name="slug" ng-model="vm.tag.slug" required>
+          <input type="text" placeholder="URL friendly name" id="slug" name="slug" ng-model="vm.tag.slug" required readonly>
         </label>
         <label class="item item-input item-stacked-label">
           <span class="input-label">Description</span>
@@ -23,13 +24,23 @@
             <option ng-repeat="tag in vm.tagOption" value={{tag._id}} ng-selected="vm.tag.parent==tag._id" ng-bind-html="tag.label"></option>
           </select>
         </label>
-
+        <div class="error-container" ng-show="tagForm.$invalid && tagForm.$submitted">
+          <div class="error" ng-show="tagForm.name.$error.required">
+            <i class="ion-information-circled"></i>
+            The tag name is required!
+          </div>
+          <div class="error" ng-show="uniqueTag">
+            <i class="ion-information-circled"></i>
+            The tag under a parent should be unique!
+          </div>
+        </div>
         <div class="padding">
-          <button type="submit" class="button button-block button-positive" ng-disabled="!tagForm.$valid || tagForm.$pristine"
-                  ng-click="vm.saveTag()">Submit
-          </button>
+          <input type="submit" class="button button-block button-positive"
+                  ng-click="tagForm.$valid && vm.saveTag(tagForm)" ng-disabled="tagForm.$pristine" value="Save" />
+          <input type="button" class="button button-block button-assertive" ng-if="vm.tag._id" ng-click="vm.deleteTag()" value="Delete" />
         </div>
       </form>
     </div>
   </ion-content>
 </ion-view>
+

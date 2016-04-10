@@ -25,25 +25,42 @@
     }
 
     editTag() {
-
+      if(this.selected){
+        this.selected = null;
+        this.$state.go('editTag',{id:this.selected._id});
+      }
     }
 
     deleteTag() {
-
+      if(this.selected){
+        this.$http.delete('/api/tags/' + this.selected._id).then(response => {
+          this.selected = null;
+          this.$state.go(this.$state.current, {}, {reload: true});
+        });
+      }
     }
   }
 
   class TagDetailController {
-    constructor($http, Util, $stateParams, $state) {
+    constructor($http, Util, $stateParams, $state, $scope) {
       this._tags = [];
       this.$http = $http;
       this.Util = Util;
       this.$stateParams = $stateParams;
       this.$state = $state;
+      this.$scope = $scope;
       this.$onInit();
+      $scope.uniqueTag = function(){
+        var vm = $scope.vm;
+        return !!!(vm._tags && vm._tags.filter(function(t){
+          return t._id !== vm.tag._id && t.name===vm.tag.name && vm.Util.normalizedValue(t.parent) === vm.Util.normalizedValue(vm.tag.parent);
+        }).length);
+      }
     }
 
     $onInit() {
+      var vm = this;
+      this.tag = {};
       this.$http.get('/api/tags').then(response => {
         if (angular.isArray(response.data)) {
           this._tags = response.data;
@@ -55,9 +72,16 @@
           this.tag = response.data;
         });
       }
+      this.$scope.$watch("vm.tag.name", function(){
+        vm.tag.slug = vm.getSlug();
+      })
     }
 
-    saveTag() {
+    getSlug() {
+      return this.tag && this.tag.name? this.tag.name.replace(/\s+/g, '-').toLowerCase(): "";
+    }
+
+    saveTag(tagForm) {
       var tag = this.tag;
       tag.parent = tag.parent || null;
       var p;
@@ -67,6 +91,12 @@
         p = this.$http.put('/api/tags/' + tag._id, tag);
       }
       p.then(response =>  {
+        this.$state.go('tags',{},{reload:true});
+      });
+    }
+
+    deleteTag() {
+      this.$http.delete('/api/tags/' + this.tag._id).then(response => {
         this.$state.go('tags',{},{reload:true});
       });
     }

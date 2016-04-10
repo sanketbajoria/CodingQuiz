@@ -1,9 +1,17 @@
-<ion-view view-title="Tags" cache-view="false">
+<ion-view view-title="Tags" cache-view="false" class="tag-list">
+  <ion-nav-buttons side="left">
+    <a class="button button-small icon-left ion-arrow-left-c" ng-show="vm.selected" ng-click="vm.selected=null">
+    </a>
+  </ion-nav-buttons>
   <ion-nav-buttons side="right">
-    <a class="button button-icon icon-right ion-android-add" ui-sref="addTag">
+    <a class="button button-small icon-right ion-trash-a" ng-show="vm.selected" ng-click="vm.deleteTag()">
+    </a>
+    <a class="button button-small icon-right ion-edit" ng-show="vm.selected" ng-click="vm.editTag()">
+    </a>
+    <a class="button button-icon icon-right ion-android-add" ng-hide="vm.selected" ui-sref="addTag">
     </a>
   </ion-nav-buttons>
   <ion-content>
-    <ion-tree-list items="vm.tagTree" show-edit="true"></ion-tree-list>
+    <ion-tree-list items="vm.tagTree" show-edit="true" selected-item="vm.selected"></ion-tree-list>
   </ion-content>
 </ion-view>

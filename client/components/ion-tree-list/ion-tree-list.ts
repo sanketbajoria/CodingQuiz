@@ -37,15 +37,20 @@ angular.module('ion-tree-list', [], function($rootScopeProvider){
             items: '=',
             collapsed: '=',
             templateUrl: '@',
-            showEdit: '='
+            showEdit: '=',
+            selectedItem: '='
         },
         templateUrl: CONF.baseUrl + '/ion-tree-list.tmpl.html',
         controller: function($scope) {
             $scope.baseUrl = CONF.baseUrl;
             $scope.toggleCollapse = toggleCollapse;
 
-            $scope.emitEvent = function(item){
-                $scope.$emit('$ionTreeList:ItemClicked', item)
+            $scope.emitEvent = function(item,event){
+                $scope.$emit('$ionTreeList:'+event, item)
+            }
+
+            $scope.selectItem = function(item){
+              $scope.selectedItem = item;
             }
 
             $scope.moveItem = function(item, fromIndex, toIndex) {
