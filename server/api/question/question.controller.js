@@ -23,7 +23,9 @@ function respondWithResult(res, statusCode) {
 
 function saveUpdates(updates) {
   return function(entity) {
+    console.log(updates);
     var updated = _.merge(entity, updates);
+    console.log(updated);
     return updated.save()
       .then(updated => {
         return updated;
@@ -68,7 +70,7 @@ export function index(req, res) {
 
 // Gets a single Question from the DB
 export function show(req, res) {
-  return Question.findById(req.params.id).exec()
+  return Question.findById(req.params.id).populate('tags').exec()
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));

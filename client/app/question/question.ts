@@ -3,16 +3,53 @@
 angular.module('codingQuizApp')
   .config(function ($stateProvider) {
     $stateProvider
-      .state('question', {
-        url: '/question',
-        template: '<question-list></question-list>'
+      .state('questions', {
+        url: '/questions',
+        templateUrl: 'app/question/questionList.html',
+        controller: 'QuestionListController',
+        controllerAs: 'vm'
       })
       .state('editQuestion', {
         url: '/question/:id',
-        template: '<question-detail></question-detail>'
+        template: '<ion-nav-view name="question"></ion-nav-view>',
+        abstract: true,
+        controller: 'QuestionDetailController',
+        controllerAs: 'vm',
+        params:{
+          id:{squash:true,value:null}
+        }
       })
-      .state('addQuestion', {
-        url: '/question/new',
-        template: '<question-detail></question-detail>'
+      .state('editQuestion.detail', {
+        url: '',
+        views:{
+          "question":{
+            templateUrl: 'app/question/editQuestionDetail.html'
+          }
+        }
+      })
+      .state('editQuestion.content', {
+        url: '/edit/content',
+        views:{
+          "question":{
+            templateUrl: 'app/question/editor.html'
+          }
+        }
+      })
+      .state('editQuestion.tag', {
+        url: '/edit/tag',
+        views:{
+          "question":{
+            templateUrl: 'app/question/tag.html'
+          }
+        }
+      })
+      .state('editQuestion.preview', {
+        url: '/preview',
+        views:{
+          "question":{
+            templateUrl: 'app/question/viewQuestionDetail.html'
+          }
+        }
       });
+
   });

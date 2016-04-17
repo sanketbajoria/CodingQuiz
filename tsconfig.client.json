@@ -30,6 +30,8 @@
         "client/components/auth/user.service.ts",
         "client/components/footer/footer.directive.ts",
         "client/components/form-validation/form-validation.directive.ts",
+        "client/components/ion-flipper/ion-flipper.ts",
+        "client/components/ion-prism/ion-prism.ts",
         "client/components/ion-tree-list/ion-tree-list.ts",
         "client/components/modal/modal.service.ts",
         "client/components/mongoose-error/mongoose-error.directive.ts",

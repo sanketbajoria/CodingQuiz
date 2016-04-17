@@ -13,12 +13,9 @@ angular.module('codingQuizApp')
         url: '/tag/:id',
         templateUrl: 'app/tag/tagDetail.html',
         controller: 'TagDetailController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        params:{
+          id:{squash:true,value:null}
+        }
       })
-      .state('addTag', {
-        url: '/tag',
-        templateUrl: 'app/tag/tagDetail.html',
-        controller: 'TagDetailController',
-        controllerAs: 'vm'
-      });
   });

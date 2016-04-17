@@ -1,59 +1,24 @@
 'use strict';
 (function(){
 
-  class QuestionListComponent {
-    constructor($http, $scope, socket) {
+  class QuestionListController {
+    constructor($http, $scope, $state) {
       this.$http = $http;
-      this.socket = socket;
-      //this.awesomeThings = [];
-
-      $scope.$on('$destroy', function() {
-        //socket.unsyncUpdates('thing');
-      });
+      this.$state = $state;
+      this.$onInit();
     }
 
 
     $onInit() {
-      this.$http.get('/api/things').then(response => {
-        this.awesomeThings = response.data;
-        this.socket.syncUpdates('thing', this.awesomeThings);
+
+      this.$http.get('/api/questions').then(response => {
+        this.questions = response.data;
       });
     }
 
-    addThing() {
-      if (this.newThing) {
-        this.$http.post('/api/things', { name: this.newThing });
-        this.newThing = '';
-      }
-    }
-
-    deleteThing(thing) {
-      this.$http.delete('/api/things/' + thing._id);
-    }
-  }
-
-  class QuestionDetailComponent {
-    constructor($http, $scope, $stateParams) {
-      this.$http = $http;
-      this.$stateParams = $stateParams;
-      this.question = {};
-    }
-
-
-    $onInit() {
-      if(this.$stateParams.id){
-        this.$http.get('/api/questions/'+this.$stateParams.id).then(response => {
-          this.question = response.data;
-        });
-      }
-    }
-
-    saveQuestion() {
-      if(!!!this.question._id){
-        this.$http.post('/api/question', question);
-      }else{
-        this.$http.put()
-      }
+    viewEditQuestion(question) {
+      if(question)
+        this.$state.go('editQuestion.detail',{id:question._id});
     }
 
     deleteQuestion(question) {
@@ -61,13 +26,76 @@
     }
   }
 
-  /*angular.module('codingQuizApp')
-    .component('questionList', {
-      templateUrl: 'app/question/questionList.html',
-      controller: QuestionListComponent
-  }).component('questionDetail', {
-      templateUrl: 'app/question/questionDetail.html',
-      controller: QuestionDetailComponent
-  });*/
+  class QuestionDetailController {
+    constructor($http, $scope, $stateParams, $state, Util, $rootScope) {
+      this.$http = $http;
+      this.$stateParams = $stateParams;
+      this.Util = Util;
+      this.$scope = $scope;
+      this.$state = $state;
+      this.$rootScope = $rootScope;
+      this.$onInit();
+      $scope.tinymceOptions = {
+        onChange: function(e) {
+          // put logic here for keypress and cut/paste changes
+        },
+        inline: false,
+        plugins : 'codesample advlist autolink link image lists charmap print preview code',
+        toolbar: ("insertfile undo redo | styleselect | bold italic | " +
+        "alignleft aligncenter alignright alignjustify | " +
+        "bullist numlist outdent indent | link image table | " +
+        "code fullscreen codesample"),
+        skin: 'lightgray',
+        theme : 'modern'
+      };
+    }
+
+
+    $onInit() {
+      this.question = {};
+      if(this.$stateParams.id){
+        this.$http.get('/api/questions/'+this.$stateParams.id).then(response => {
+          this.question = response.data;
+        });
+      }
+      this.$http.get('/api/tags').then(response => {
+        if (angular.isArray(response.data)) {
+          this._tags = response.data;
+          this.tagTree = this.Util.getTagTree(this._tags);
+        }
+      });
+    }
+
+    saveQuestion(questionForm) {
+      var question = this.question;
+      if (angular.isArray(question.tags))
+        question.tags = question.tags.map(function (tag) {
+          return angular.isString(tag) ? tag : angular.isObject(tag) && tag._id ? tag._id : null;
+        });
+      var p = !!!question._id?this.$http.post('/api/questions', question):this.$http.put('/api/questions/' + question._id, question);
+      p.then(response =>  {
+        this.$state.go('questions',{},{reload:true});
+      });
+    }
+
+    deleteQuestion() {
+      this.$http.delete('/api/questions/' + this.question._id).then(response => {
+        this.$state.go('questions', {}, {reload: true});
+      });
+    }
+
+    editContent(name){
+      this.$scope.name = name;
+      this.$state.go('editQuestion.content');
+    }
+
+    editTag(){
+      this.$state.go('editQuestion.tag');
+    }
+  }
+
+  angular.module('codingQuizApp')
+    .controller('QuestionListController', QuestionListController)
+    .controller('QuestionDetailController', QuestionDetailController);
 
 })();

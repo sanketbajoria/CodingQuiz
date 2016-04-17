@@ -21,9 +21,11 @@ module.exports = function(config) {
       'client/bower_components/lodash/dist/lodash.compat.js',
       'client/bower_components/angular-cookies/angular-cookies.js',
       'client/bower_components/angular-resource/angular-resource.js',
-      'client/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'client/bower_components/angular-validation-match/dist/angular-input-match.min.js',
       'client/bower_components/angular-socket-io/socket.js',
+      'client/bower_components/tinymce-dist/tinymce.js',
+      'client/bower_components/angular-ui-tinymce/src/tinymce.js',
+      'client/bower_components/prism/prism.js',
       'client/bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'node_modules/socket.io-client/socket.io.js',

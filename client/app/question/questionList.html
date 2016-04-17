@@ -1,1 +1,15 @@
-<div>This is the question view.</div>
+<ion-view view-title="Question List" cache-view="false">
+  <ion-nav-buttons side="right">
+    <a class="button button-small icon-right ion-eye" ui-sref="editQuestion.preview">
+    </a>
+  </ion-nav-buttons>
+  <ion-content class="question-list">
+    <div ng-repeat="question in vm.questions" class="row">
+      <div class="col">
+        <ion-flipper question="question" style="{height:'160px'}" on-click="vm.viewEditQuestion(question)"></ion-flipper>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
+
+

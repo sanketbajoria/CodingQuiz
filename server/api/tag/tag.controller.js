@@ -31,6 +31,24 @@ function saveUpdates(updates) {
   };
 }
 
+function removeChildEntity(res) {
+  return function(entity) {
+    if (entity) {
+      return Tag.remove({parent: entity._id})
+                .exec().then(() => {
+                    return entity;
+                });
+    }
+  };
+}
+
+
+function removeAllEntity(res) {
+  return function() {
+    res.status(204).end();
+  };
+}
+
 function removeEntity(res) {
   return function(entity) {
     if (entity) {
@@ -97,6 +115,14 @@ export function update(req, res) {
 export function destroy(req, res) {
   return Tag.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
+    .then(removeChildEntity(res))
     .then(removeEntity(res))
+    .catch(handleError(res));
+}
+
+// Deletes all Tag from the DB
+export function destroyAll(req, res) {
+  return Tag.remove({_id: {$in:req.body.tags}}).exec()
+    .then(removeAllEntity(res))
     .catch(handleError(res));
 }

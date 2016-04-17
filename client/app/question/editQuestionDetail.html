@@ -1,0 +1,46 @@
+<ion-view view-title="Question Detail" cache-view="false">
+  <ion-nav-back-button></ion-nav-back-button>
+  <ion-nav-buttons side="right">
+    <a class="button button-small icon-right ion-eye" ui-sref="editQuestion.preview">
+    </a>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="list question-detail">
+      <form name="questionForm" novalidate role="form">
+        <label class="item item-input item-stacked-label" ng-click="vm.editContent('question')">
+          <span class="input-label">Question</span>
+          <div class="editable" ion-prism="vm.question.question"></div>
+        </label>
+        <label class="item item-input item-stacked-label" ng-click="vm.editContent('answer')">
+          <span class="input-label">Answer</span>
+          <div class="editable" ion-prism="vm.question.answer"></div>
+        </label>
+        <label class="item" ng-click="vm.editTag()">
+          <span class="input-label">
+            Tags
+          </span>
+          <div>
+              <span ng-repeat="tag in vm.question.tags">
+                        {{$index>0 ? ', ' : ''}}  {{tag.name}}
+              </span>
+          </div>
+          <!--<select ng-model="vm.question.tag" name="tag" id="tag">
+            <option value="" ng-selected="!vm.question.tag">None</option>
+            <option ng-repeat="tag in vm.tagOption" value={{tag._id}} ng-selected="vm.question.tag==tag._id" ng-bind-html="tag.label"></option>
+          </select>-->
+        </label>
+        <div class="padding">
+          <input type="submit" class="button button-block button-positive"
+                 ng-click="questionForm.$valid && vm.saveQuestion(questionForm)" value="Save" />
+          <input type="button" class="button button-block button-assertive" ng-if="vm.question._id" ng-click="vm.deleteQuestion()" value="Delete" />
+        </div>
+      </form>
+    </div>
+    <!--<textarea ui-tinymce="tinymceOptions" ng-model="tinymceModel"></textarea>
+    <div class="card">
+      <div class="item item-text-wrap" ng-bind-html="tinymceModel">
+      </div>
+    </div>-->
+  </ion-content>
+</ion-view>
+

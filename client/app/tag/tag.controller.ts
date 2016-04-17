@@ -2,12 +2,13 @@
 (function () {
 
   class TagListController {
-    constructor($http, Util, $scope, $state) {
+    constructor($http, Util, $scope, $state, $ionicPopup) {
       this._tags = [];
       this.$http = $http;
       this.Util = Util;
       this.$scope = $scope;
       this.$state = $state;
+      this.$ionicPopup = $ionicPopup;
       this.$onInit();
     }
 
@@ -26,16 +27,23 @@
 
     editTag() {
       if(this.selected){
-        this.selected = null;
         this.$state.go('editTag',{id:this.selected._id});
+        this.selected = null;
       }
     }
 
     deleteTag() {
       if(this.selected){
-        this.$http.delete('/api/tags/' + this.selected._id).then(response => {
-          this.selected = null;
-          this.$state.go(this.$state.current, {}, {reload: true});
+        this.$ionicPopup.confirm({
+          title: "Delete Tag",
+          template: "It will delete the tag and it's children. Are you sure"
+        }).then(res => {
+          if (res) {
+            this.$http.post('/api/tags/deleteTags', {tags: this.Util.getTagIds(this.selected)}).then(response => {
+              this.$state.go(this.$state.current, {}, {reload: true});
+              this.selected = null;
+            });
+          }
         });
       }
     }
@@ -84,20 +92,22 @@
     saveTag(tagForm) {
       var tag = this.tag;
       tag.parent = tag.parent || null;
-      var p;
-      if(!!!tag._id){
-        p = this.$http.post('/api/tags', tag);
-      }else{
-        p = this.$http.put('/api/tags/' + tag._id, tag);
-      }
+      var p = !!!tag._id?this.$http.post('/api/tags', tag):this.$http.put('/api/tags/' + tag._id, tag);
       p.then(response =>  {
         this.$state.go('tags',{},{reload:true});
       });
     }
 
     deleteTag() {
-      this.$http.delete('/api/tags/' + this.tag._id).then(response => {
-        this.$state.go('tags',{},{reload:true});
+      this.$ionicPopup.confirm({
+        title: "Delete Tag",
+        template: "It will delete the tag and it's children. Are you sure"
+      }).then(res => {
+        if (res) {
+          this.$http.post('/api/tags/deleteTags', {tags: this.Util.getTagIds(this.tag)}).then(response => {
+            this.$state.go('tags', {}, {reload: true});
+          });
+        }
       });
     }
   }

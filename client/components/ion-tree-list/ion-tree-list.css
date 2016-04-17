@@ -3,6 +3,10 @@
   margin-bottom: 0px;
 }
 
+.list.ion-tree .item-toggle{
+  pointer-events: auto;
+}
+
 .depth-1 {
   padding-left: 15px
 }

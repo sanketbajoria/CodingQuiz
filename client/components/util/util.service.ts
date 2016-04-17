@@ -73,20 +73,35 @@ function UtilService($window) {
 
     getTagOptions(tags, excludeTag) {
       var tagOptions = [];
-      this.mapTagOptions(this.getTagTree(tags), 0, tagOptions, excludeTag);
+      function mapTagOptions(tags, level) {
+        if (angular.isArray(tags)) {
+          angular.forEach(tags, function (tag) {
+            if(!excludeTag   || tag._id !== excludeTag){
+              tag.label = Array(level + 1).join("&nbsp;&nbsp;") + tag.name
+              tagOptions.push(tag);
+              mapTagOptions(tag.tree, level + 1);
+            }
+          });
+        }
+      };
+      mapTagOptions(this.getTagTree(tags), 0);
       return tagOptions;
     },
 
-    mapTagOptions(tags, level, tagOptions, excludeTag) {
-      if (angular.isArray(tags)) {
-        angular.forEach(tags, function (tag) {
-          if(!excludeTag   || tag._id !== excludeTag){
-            tag.label = Array(level + 1).join("&nbsp;&nbsp;") + tag.name
-            tagOptions.push(tag);
-            this.mapTagOptions(tag.tree, level + 1, tagOptions, excludeTag);
+    getTagIds(tag){
+      var tagIds = [];
+      function flattifyIds(tag){
+        if(tag && tag._id){
+          tagIds.push(tag._id);
+          if(angular.isArray(tag.tree)){
+            angular.forEach(tag.tree, function(tag){
+              flattifyIds(tag);
+            });
           }
-        }, this);
+        }
       }
+      flattifyIds(tag);
+      return tagIds;
     },
 
     normalizedValue(val){

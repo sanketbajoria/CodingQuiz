@@ -5,13 +5,19 @@
         <i class="icon" ng-if="item.tree.length > 0" ng-class="item.tree.collapsed ? 'ion-arrow-right-b' : 'ion-arrow-down-b'"></i>
     </span>
     {{item.name}}
-    <button class="button button-small button-icon icon-right ion-edit" ng-click="editItem(item, $event)" ng-if="showEdit"></button>
+    <label class="toggle" ng-if="checkEnabled" ng-click="checkEnabled && toggleCheck(item,$event)">
+      <input type="checkbox" ng-init="item.checked=isChecked(item)" ng-model="item.checked" />
+      <div class="track">
+        <div class="handle"></div>
+      </div>
+    </label>
+    <!-- /*, 'item-button-right':showEdit}*/ <button class="button button-small button-icon icon-right ion-edit" ng-click="editItem(item, $event)" ng-if="showEdit"></button>-->
 </script>
 
 <script type="text/ng-template" id="items_renderer">
-    <div class="item item-button-right item depth-{{item.depth}}"
-              on-tap="toggleCollapse(item); emitEvent(item,'ItemClicked')" on-hold="selectItem(item); emitEvent(item,'ItemHold')"
-              ng-include="templateUrl" ng-class="{selected: selectedItem==item}">
+    <div class="item item depth-{{item.depth}}"
+              ng-click="toggleCollapse(item); emitEvent(item,'ItemClicked')" on-hold="selectEnabled && toggleSelect(item, $event)"
+              ng-include="templateUrl" ng-class="{selected: isSelected(item), 'item-toggle':checkEnabled}">
     </div>
     <div class="list ion-tree" ng-model="item.tree"
               ng-repeat="item in item.tree"

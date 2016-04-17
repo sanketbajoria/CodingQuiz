@@ -9,10 +9,10 @@ angular.module('codingQuizApp', ['ionic',
   'ngSanitize',
   'btford.socket-io',
   'ui.router',
-  'ui.bootstrap',
   'validation.match',
   'ion-tree-list',
-  'ngMessages'
+  'ui.tinymce',
+  'ngFitText'
 ])/*
   .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -46,5 +46,12 @@ angular.module('codingQuizApp', ['ionic',
         }
       }
     });
+  })
+  .run(function ($rootScope) {
+    $rootScope.$on('$viewContentLoaded',
+      function (event, toState, toParams, fromState, fromParams) {
+        console.log("view content loaded");
+        Prism.highlightAll();
+      })
   });
 
