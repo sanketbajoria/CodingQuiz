@@ -1,9 +1,5 @@
 <ion-view view-title="Question Detail" cache-view="false">
   <ion-nav-back-button></ion-nav-back-button>
-  <ion-nav-buttons side="right">
-    <a class="button button-small icon-right ion-eye" ui-sref="editQuestion.preview">
-    </a>
-  </ion-nav-buttons>
   <ion-content>
     <div class="list question-detail">
       <form name="questionForm" novalidate role="form">
@@ -24,10 +20,16 @@
                         {{$index>0 ? ', ' : ''}}  {{tag.name}}
               </span>
           </div>
-          <!--<select ng-model="vm.question.tag" name="tag" id="tag">
-            <option value="" ng-selected="!vm.question.tag">None</option>
-            <option ng-repeat="tag in vm.tagOption" value={{tag._id}} ng-selected="vm.question.tag==tag._id" ng-bind-html="tag.label"></option>
-          </select>-->
+        </label>
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Level
+          </div>
+          <select ng-model="vm.question.level">
+            <option value="beginner">Beginner</option>
+            <option value="intermediate" selected>Intermediate</option>
+            <option value="expert">Expert</option>
+          </select>
         </label>
         <div class="padding">
           <input type="submit" class="button button-block button-positive"
@@ -36,11 +38,6 @@
         </div>
       </form>
     </div>
-    <!--<textarea ui-tinymce="tinymceOptions" ng-model="tinymceModel"></textarea>
-    <div class="card">
-      <div class="item item-text-wrap" ng-bind-html="tinymceModel">
-      </div>
-    </div>-->
   </ion-content>
 </ion-view>
 

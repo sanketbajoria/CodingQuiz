@@ -88,9 +88,8 @@ export function update(req, res) {
   if (req.body._id) {
     delete req.body._id;
   }
-  return Question.findById(req.params.id).exec()
+  return Question.findByIdAndUpdate(req.params.id, { $set: req.body}).exec()
     .then(handleEntityNotFound(res))
-    .then(saveUpdates(req.body))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }

@@ -26,6 +26,7 @@ module.exports = function(config) {
       'client/bower_components/tinymce-dist/tinymce.js',
       'client/bower_components/angular-ui-tinymce/src/tinymce.js',
       'client/bower_components/prism/prism.js',
+      'client/bower_components/ngstorage/ngStorage.js',
       'client/bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'node_modules/socket.io-client/socket.io.js',

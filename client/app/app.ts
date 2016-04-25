@@ -12,7 +12,7 @@ angular.module('codingQuizApp', ['ionic',
   'validation.match',
   'ion-tree-list',
   'ui.tinymce',
-  'ngFitText'
+  'ngStorage'
 ])/*
   .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {

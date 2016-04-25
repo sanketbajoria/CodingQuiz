@@ -2,23 +2,50 @@
 (function(){
 
   class QuestionListController {
-    constructor($http, $scope, $state) {
+
+    constructor($http, $scope, $state, userPref, qView, $rootScope) {
       this.$http = $http;
       this.$state = $state;
+      this.userPref = userPref;
+      this.qView = qView;
       this.$onInit();
-    }
 
+      //Slider options
+      var self=this;
+      $scope.options = {
+        loop: false,
+        onSlideChangeEnd: function(swiper){
+          if(self.questions.length - swiper.activeIndex == 2){
+              $scope.$apply(function(){
+              self.questions.push(angular.copy(self.questions[0]));
+              swiper.update(true);
+            })
+          }
+        },
+        speed: 500,
+      }
 
-    $onInit() {
-
-      this.$http.get('/api/questions').then(response => {
-        this.questions = response.data;
+      //Toggle the favorite item
+      $rootScope.$on("$ionFlipper:toggleFavorite", function(e, question){
+        qView.toggleFavorite(question, question.favorite);
       });
     }
 
-    viewEditQuestion(question) {
+    $onInit() {
+      this.$http.get('/api/questions').then(response => {
+        this.questions = response.data;
+      });
+      this.displayState = this.userPref.get('displayState', 1);
+    }
+
+    changeDisplayState(){
+     this.displayState = (this.displayState+1) % 2;
+     this.userPref.set('displayState',this.displayState);
+    }
+
+    viewQuestion(question) {
       if(question)
-        this.$state.go('editQuestion.detail',{id:question._id});
+        this.$state.go('question.view',{id:question._id});
     }
 
     deleteQuestion(question) {
@@ -27,13 +54,13 @@
   }
 
   class QuestionDetailController {
-    constructor($http, $scope, $stateParams, $state, Util, $rootScope) {
+    constructor($http, $scope, $stateParams, $state, Util, qView) {
       this.$http = $http;
       this.$stateParams = $stateParams;
       this.Util = Util;
       this.$scope = $scope;
       this.$state = $state;
-      this.$rootScope = $rootScope;
+      this.qView = qView;
       this.$onInit();
       $scope.tinymceOptions = {
         onChange: function(e) {
@@ -49,7 +76,6 @@
         theme : 'modern'
       };
     }
-
 
     $onInit() {
       this.question = {};
@@ -68,13 +94,9 @@
 
     saveQuestion(questionForm) {
       var question = this.question;
-      if (angular.isArray(question.tags))
-        question.tags = question.tags.map(function (tag) {
-          return angular.isString(tag) ? tag : angular.isObject(tag) && tag._id ? tag._id : null;
-        });
       var p = !!!question._id?this.$http.post('/api/questions', question):this.$http.put('/api/questions/' + question._id, question);
       p.then(response =>  {
-        this.$state.go('questions',{},{reload:true});
+        this.$state.go('question.view');
       });
     }
 
@@ -86,11 +108,11 @@
 
     editContent(name){
       this.$scope.name = name;
-      this.$state.go('editQuestion.content');
+      this.$state.go('question.content');
     }
 
     editTag(){
-      this.$state.go('editQuestion.tag');
+      this.$state.go('question.tag');
     }
   }
 

@@ -36,7 +36,7 @@
       if(this.selected){
         this.$ionicPopup.confirm({
           title: "Delete Tag",
-          template: "It will delete the tag and it's children. Are you sure"
+          template: "It will delete the tag and it's children. Are you sure?"
         }).then(res => {
           if (res) {
             this.$http.post('/api/tags/deleteTags', {tags: this.Util.getTagIds(this.selected)}).then(response => {
@@ -101,7 +101,7 @@
     deleteTag() {
       this.$ionicPopup.confirm({
         title: "Delete Tag",
-        template: "It will delete the tag and it's children. Are you sure"
+        template: "It will delete the tag and it's children. Are you sure?"
       }).then(res => {
         if (res) {
           this.$http.post('/api/tags/deleteTags', {tags: this.Util.getTagIds(this.tag)}).then(response => {

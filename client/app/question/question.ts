@@ -9,7 +9,7 @@ angular.module('codingQuizApp')
         controller: 'QuestionListController',
         controllerAs: 'vm'
       })
-      .state('editQuestion', {
+      .state('question', {
         url: '/question/:id',
         template: '<ion-nav-view name="question"></ion-nav-view>',
         abstract: true,
@@ -19,15 +19,23 @@ angular.module('codingQuizApp')
           id:{squash:true,value:null}
         }
       })
-      .state('editQuestion.detail', {
+      .state('question.view', {
         url: '',
+        views:{
+          "question":{
+            templateUrl: 'app/question/viewQuestionDetail.html'
+          }
+        }
+      })
+      .state('question.edit', {
+        url: '/edit',
         views:{
           "question":{
             templateUrl: 'app/question/editQuestionDetail.html'
           }
         }
       })
-      .state('editQuestion.content', {
+      .state('question.content', {
         url: '/edit/content',
         views:{
           "question":{
@@ -35,19 +43,11 @@ angular.module('codingQuizApp')
           }
         }
       })
-      .state('editQuestion.tag', {
+      .state('question.tag', {
         url: '/edit/tag',
         views:{
           "question":{
             templateUrl: 'app/question/tag.html'
-          }
-        }
-      })
-      .state('editQuestion.preview', {
-        url: '/preview',
-        views:{
-          "question":{
-            templateUrl: 'app/question/viewQuestionDetail.html'
           }
         }
       });

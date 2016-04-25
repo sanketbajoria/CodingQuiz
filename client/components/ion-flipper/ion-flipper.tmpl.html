@@ -1,19 +1,25 @@
-<div class="flip-container" ng-class="{'read': read}" ng-style="style" ng-click="itemClicked({question: question}); emitEvent($event)">
+<div class="flip-container" ng-class="{'read': read, 'flip': flipped}" ng-style="style" ng-click="itemClicked({question: question}); emitEvent('Clicked',$event)">
   <div class="flipper clearfix">
-    <div class="front card item-text-wrapped" ng-style="style">
+    <div class="front card item-text-wrapped" ng-style="frontStyle">
       <div class="top">
         <i class="icon ion-checkmark-circled"></i>
       </div>
       <div class="icon-holder">Q</div>
       <div class="padding" ion-prism="question.question">
       </div>
+      <div class="item item-divider footer">
+        <i class="icon favorite" ng-click="toggleFavorite($event)" ng-class="question.favorite?'ion-ios-heart':'ion-ios-heart-outline'"></i>
+      </div>
     </div>
-    <div class="back card item-text-wrapped success" ng-style="style">
+    <div class="back card item-text-wrapped success" ng-style="backStyle">
       <div class="top">
         <i class="icon ion-checkmark-circled"></i>
       </div>
       <div class="icon-holder">A</div>
       <div class="answer padding" ion-prism="question.answer">
+      </div>
+      <div class="item item-divider footer">
+        <i class="icon favorite" ng-click="toggleFavorite($event)" ng-class="question.favorite?'ion-ios-heart':'ion-ios-heart-outline'"></i>
       </div>
     </div>
   </div>
