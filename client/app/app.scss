@@ -86,3 +86,19 @@
   background-color: #f8f8f8;
 }
 
+.floating-icon{
+   border-radius: 50%;
+   height: 48px;
+   width: 48px;
+   position: absolute;
+   right: 24px;
+   bottom: 24px;
+   box-shadow: 0 3px 10px rgba(0,0,0,0.23),0 3px 10px rgba(0,0,0,0.16);
+   z-index: 10000;
+   color: #fff;
+ }
+
+a.button.icon.floating-icon:before{
+  margin-top: 3px;
+  font-weight: 500;
+}

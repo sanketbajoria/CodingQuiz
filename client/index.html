@@ -52,6 +52,7 @@
       ga('send', 'pageview');
     </script>
 
+    <script src="bower_components/ydn.db/jsc/ydn.db-dev.js"></script>
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
     <script src="bower_components/json3/lib/json3.min.js"></script>
@@ -73,6 +74,7 @@
       <script src="bower_components/angular-ui-tinymce/src/tinymce.js"></script>
       <script src="bower_components/prism/prism.js"></script>
       <script src="bower_components/ngstorage/ngStorage.js"></script>
+      <script src="bower_components/fingerprintjs2/dist/fingerprint2.min.js"></script>
       <!-- endbower -->
       <script src="socket.io-client/socket.io.js"></script>
     <!-- endbuild -->
@@ -88,8 +90,9 @@
       <script src="app/admin/admin.router.js"></script>
       <script src="app/main/main.controller.js"></script>
       <script src="app/main/main.js"></script>
-      <script src="app/question/question.controller.js"></script>
       <script src="app/question/question.js"></script>
+      <script src="app/question/questionDetail.controller.js"></script>
+      <script src="app/question/questionList.controller.js"></script>
       <script src="app/tag/tag.controller.js"></script>
       <script src="app/tag/tag.js"></script>
       <script src="app/account/settings/settings.controller.js"></script>
@@ -101,6 +104,7 @@
       <script src="components/form-validation/form-validation.directive.js"></script>
       <script src="components/ion-flipper/ion-flipper.js"></script>
       <script src="components/ion-prism/ion-prism.js"></script>
+      <script src="components/ion-storage/ion-storage.service.js"></script>
       <script src="components/ion-tree-list/ion-tree-list.js"></script>
       <script src="components/modal/modal.service.js"></script>
       <script src="components/mongoose-error/mongoose-error.directive.js"></script>

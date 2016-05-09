@@ -2,7 +2,7 @@
 'use strict';
 
 angular.module('codingQuizApp')
-  .factory('qView', function ($localStorage) {
+  .factory('qView', function ($localStorage, Auth) {
     if(!$localStorage.qView)
       $localStorage.qView = {};
     if(!$localStorage.qFavorite)
@@ -23,10 +23,12 @@ angular.module('codingQuizApp')
         return question && qFavorite[question._id];
       },
       toggleFavorite: function(question, toggle){
-        $localStorage.qFavorite[question._id] = qFavorite[question._id] = toggle;
+        $localStorage.qFavorite[question._id] = qFavorite[question._id] = toggle?question:null;
       },
       getAllFavorites: function(){
-        return Object.keys(qFavorite);
+        return Object.keys(qFavorite).map(function (key) {
+          return qFavorite[key];
+        });
       }
     }
   });

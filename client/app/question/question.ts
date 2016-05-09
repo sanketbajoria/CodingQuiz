@@ -19,19 +19,19 @@ angular.module('codingQuizApp')
           id:{squash:true,value:null}
         }
       })
-      .state('question.view', {
+      .state('question.edit', {
         url: '',
         views:{
           "question":{
-            templateUrl: 'app/question/viewQuestionDetail.html'
+            templateUrl: 'app/question/editQuestionDetail.html'
           }
         }
       })
-      .state('question.edit', {
-        url: '/edit',
+      .state('question.view', {
+        url: '/view',
         views:{
           "question":{
-            templateUrl: 'app/question/editQuestionDetail.html'
+            templateUrl: 'app/question/viewQuestionDetail.html'
           }
         }
       })

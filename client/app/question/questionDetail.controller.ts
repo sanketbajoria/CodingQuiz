@@ -1,58 +1,6 @@
 'use strict';
 (function(){
 
-  class QuestionListController {
-
-    constructor($http, $scope, $state, userPref, qView, $rootScope) {
-      this.$http = $http;
-      this.$state = $state;
-      this.userPref = userPref;
-      this.qView = qView;
-      this.$onInit();
-
-      //Slider options
-      var self=this;
-      $scope.options = {
-        loop: false,
-        onSlideChangeEnd: function(swiper){
-          if(self.questions.length - swiper.activeIndex == 2){
-              $scope.$apply(function(){
-              self.questions.push(angular.copy(self.questions[0]));
-              swiper.update(true);
-            })
-          }
-        },
-        speed: 500,
-      }
-
-      //Toggle the favorite item
-      $rootScope.$on("$ionFlipper:toggleFavorite", function(e, question){
-        qView.toggleFavorite(question, question.favorite);
-      });
-    }
-
-    $onInit() {
-      this.$http.get('/api/questions').then(response => {
-        this.questions = response.data;
-      });
-      this.displayState = this.userPref.get('displayState', 1);
-    }
-
-    changeDisplayState(){
-     this.displayState = (this.displayState+1) % 2;
-     this.userPref.set('displayState',this.displayState);
-    }
-
-    viewQuestion(question) {
-      if(question)
-        this.$state.go('question.view',{id:question._id});
-    }
-
-    deleteQuestion(question) {
-      this.$http.delete('/api/questions/' + question._id);
-    }
-  }
-
   class QuestionDetailController {
     constructor($http, $scope, $stateParams, $state, Util, qView) {
       this.$http = $http;
@@ -78,7 +26,7 @@
     }
 
     $onInit() {
-      this.question = {};
+      this.question = {level: 'intermediate'};
       if(this.$stateParams.id){
         this.$http.get('/api/questions/'+this.$stateParams.id).then(response => {
           this.question = response.data;
@@ -96,13 +44,20 @@
       var question = this.question;
       var p = !!!question._id?this.$http.post('/api/questions', question):this.$http.put('/api/questions/' + question._id, question);
       p.then(response =>  {
-        this.$state.go('question.view');
+        this.$state.go('questions');
       });
     }
 
     deleteQuestion() {
-      this.$http.delete('/api/questions/' + this.question._id).then(response => {
-        this.$state.go('questions', {}, {reload: true});
+      this.$ionicPopup.confirm({
+        title: "Delete Question",
+        template: "Are you sure to delete it?"
+      }).then(res => {
+        if (res) {
+          this.$http.delete('/api/questions/' + this.question._id).then(response => {
+            this.$state.go('questions', {}, {reload: true});
+          });
+        }
       });
     }
 
@@ -117,7 +72,5 @@
   }
 
   angular.module('codingQuizApp')
-    .controller('QuestionListController', QuestionListController)
     .controller('QuestionDetailController', QuestionDetailController);
-
 })();

@@ -31,16 +31,8 @@
 .front .top,
 .back .top {
   padding: 10px 10px;
-  text-align: right;
+  height:44px;
   font-size: 24px;
-}
-
-.flip-container .top i{
-  visibility: hidden;
-}
-
-.flip-container.read .top i{
-  visibility: visible;
 }
 
 .flip-container .top,
@@ -132,14 +124,23 @@
   padding: 5px 10px;
 }
 
-.flip-container .ion-checkmark-circled:before{
-  box-shadow: 0 3px 10px rgba(0,0,0,0.23),0 3px 10px rgba(0,0,0,0.16);
-  border-radius: 50%;
-}
-
 .flip-container .icon.favorite{
   color: #FF5252;
   font-size: 22px;
   float:right;
   text-shadow: 0 2px 7px rgba(0,0,0,0.23),0 3px 10px rgba(0,0,0,0.16);
+}
+
+.flip-container .top .icon:before{
+  text-shadow: 0 3px 10px rgba(0,0,0,0.23),0 3px 10px rgba(0,0,0,0.16);
+}
+
+.flip-container .top .icon.icon-left{
+  margin-right: 18px;
+  float: left;
+}
+
+.flip-container .top .icon.icon-right{
+  margin-left: 18px;
+  float: right;
 }

@@ -6,6 +6,7 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
   var safeCb = Util.safeCb;
   var currentUser = {};
   var userRoles = appConfig.userRoles || [];
+  var uniqueId = null;
 
   if ($cookies.get('token') && $location.path() !== '/logout') {
     currentUser = User.get();
@@ -177,6 +178,23 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
      */
     getToken() {
       return $cookies.get('token');
+    },
+
+    /**
+     * Get Unique token
+     */
+    getUniqueId() {
+      var deferred = $q.defer();
+      if(uniqueId){
+        deferred.resolve(uniqueId);
+      }else{
+        new Fingerprint2().get(function(result, components){
+          console.log(result);
+          uniqueId = result;
+          deferred.resolve(uniqueId);
+        });
+      }
+      return deferred.promise;
     }
   };
 
