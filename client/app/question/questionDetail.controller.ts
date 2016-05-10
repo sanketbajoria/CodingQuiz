@@ -69,6 +69,7 @@
     editTag(){
       this.$state.go('question.tag');
     }
+
   }
 
   angular.module('codingQuizApp')

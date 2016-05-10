@@ -5,17 +5,22 @@
       <form name="questionForm" novalidate role="form">
         <label class="item item-input item-stacked-label" ng-click="vm.editContent('question')">
           <span class="input-label">Question</span>
-          <div class="editable" ion-prism="vm.question.question"></div>
+          <div class="editable"  ion-prism="vm.question.question">
+            <span ng-show="!!!vm.question.question" class="placeholder">Type your question here...</span>
+          </div>
         </label>
         <label class="item item-input item-stacked-label" ng-click="vm.editContent('answer')">
           <span class="input-label">Answer</span>
-          <div class="editable" ion-prism="vm.question.answer"></div>
+          <div class="editable" ion-prism="vm.question.answer">
+            <span ng-show="!!!vm.question.answer" class="placeholder">Type your answer here...</span>
+          </div>
         </label>
         <label class="item" ng-click="vm.editTag()">
           <span class="input-label">
             Tags
           </span>
           <div>
+              <span ng-hide="vm.question.tags && vm.question.tags.length>0" class="placeholder">Choose tags under which question lie...</span>
               <span ng-repeat="tag in vm.question.tags">
                         {{$index>0 ? ', ' : ''}}  {{tag.name}}
               </span>

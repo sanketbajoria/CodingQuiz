@@ -1,0 +1,73 @@
+<ion-view view-title="Filter" cache-view="false">
+  <ion-nav-back-button></ion-nav-back-button>
+  <ion-content>
+    <div class="list filter">
+
+      <div class="card" ng-click="vm.editTag()">
+        <div class="item item-divider">
+          Tags
+        </div>
+        <div class="item item-text-wrap">
+          <div>
+            <span ng-hide="vm.question.tags && vm.question.tags.length>0" class="placeholder">Filter question based upon tags...</span>
+              <span ng-repeat="tag in vm.question.tags">
+                        {{$index>0 ? ', ' : ''}}  {{tag.name}}
+              </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" ng-click="vm.editTag()">
+        <div class="item item-divider">
+          Maximum Complexity
+        </div>
+        <div class="item range">
+          <i class="icon ion-volume-low"></i>
+          <input type="range" name="volume">
+          <i class="icon ion-volume-high"></i>
+        </div>
+
+        <div class="item item-text-wrap">
+          <div>
+            <span ng-hide="vm.question.tags && vm.question.tags.length>0" class="placeholder">Filter question based upon tags...</span>
+              <span ng-repeat="tag in vm.question.tags">
+                        {{$index>0 ? ', ' : ''}}  {{tag.name}}
+              </span>
+          </div>
+        </div>
+      </div>
+
+
+        <div class="item range range-positive">
+          <i class="icon ion-ios-sunny-outline"></i>
+          <input type="range" name="complexity" min="1" max="3" value="2">
+          <i class="icon ion-ios-sunny"></i>
+        </div>
+        <label class="item item-input item-stacked-label" ng-click="vm.editContent('question')">
+          <span class="input-label"></span>
+          <div class="editable" ion-prism="vm.question.question"></div>
+        </label>
+        <label class="item item-input item-stacked-label" ng-click="vm.editContent('answer')">
+          <span class="input-label">Answer</span>
+          <div class="editable" ion-prism="vm.question.answer"></div>
+        </label>
+
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Level
+          </div>
+          <select ng-model="vm.question.level">
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="expert">Expert</option>
+          </select>
+        </label>
+        <div class="padding">
+          <input type="submit" class="button button-block button-positive"
+                 ng-click="questionForm.$valid && vm.saveQuestion(questionForm)" value="Save" />
+          <input type="button" class="button button-block button-assertive" ng-if="vm.question._id" ng-click="vm.deleteQuestion()" value="Delete" />
+        </div>
+    </div>
+  </ion-content>
+</ion-view>
+

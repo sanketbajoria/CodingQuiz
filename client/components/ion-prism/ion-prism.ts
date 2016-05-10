@@ -10,10 +10,12 @@ angular.module('codingQuizApp')
       },
       link: function($scope, $elem, $attrs){
         $scope.$watch('ionPrism', function(){
-          $elem.html($scope.ionPrism);
-          var a = $elem.find('pre');
-          if(a.length>0){
-            Prism.highlightElement(a[0]);
+          if(!!$scope.ionPrism){
+            $elem.html($scope.ionPrism);
+            var a = $elem.find('pre');
+            if(a.length>0){
+              Prism.highlightElement(a[0]);
+            }
           }
         });
       }
