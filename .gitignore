@@ -1,6 +1,7 @@
 node_modules
 public
 .tmp
+.tscache
 .sass-cache
 .idea
 client/bower_components
@@ -38,6 +39,7 @@ build/Release
 node_modules
 jspm_packages
 client/bower_components
+.tscache
 
 # Optional npm cache directory
 .npm
