@@ -55,20 +55,60 @@ function UtilService($window) {
       return (origins.length >= 1);
     },
 
-    getTagsTree(tags){
+    getTagTree(tags){
       var tagMap = {};
       angular.forEach(tags, function (tag) {
-        tag.children = [];
+        tag.tree = [];
         tagMap[tag._id] = tag;
       });
       angular.forEach(tagMap, function (tag, id) {
         if (tag.parent) {
-          tagMap[tag.parent].children.push(tag);
+          tagMap[tag.parent].tree.push(tag);
         }
       });
-      return tagMap.values.filter(function(tag){
+      return Object.keys(tagMap).map(function(k){return tagMap[k];}).filter(function(tag){
         return !!!tag.parent;
       });
+    },
+
+    getTagOptions(tags, excludeTag) {
+      var tagOptions = [];
+      function mapTagOptions(tags, level) {
+        if (angular.isArray(tags)) {
+          angular.forEach(tags, function (tag) {
+            if(!excludeTag   || tag._id !== excludeTag){
+              tag.label = Array(level + 1).join("&nbsp;&nbsp;") + tag.name
+              tagOptions.push(tag);
+              mapTagOptions(tag.tree, level + 1);
+            }
+          });
+        }
+      };
+      mapTagOptions(this.getTagTree(tags), 0);
+      return tagOptions;
+    },
+
+    getTagIds(tag){
+      var tagIds = [];
+      function flattifyIds(tag){
+        if(tag && tag._id){
+          tagIds.push(tag._id);
+          if(angular.isArray(tag.tree)){
+            angular.forEach(tag.tree, function(tag){
+              flattifyIds(tag);
+            });
+          }
+        }
+      }
+      flattifyIds(tag);
+      return tagIds;
+    },
+
+    normalizedValue(val){
+      if(val==="" || val===null || val===undefined){
+        return false;
+      }
+      return val;
     }
   };
 

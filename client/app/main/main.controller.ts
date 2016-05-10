@@ -33,10 +33,10 @@ class MainController {
   }
 }
 
-angular.module('codingQuizApp')
+/*angular.module('codingQuizApp')
   .component('main', {
     templateUrl: 'app/main/main.html',
     controller: MainController
-  });
+  });*/
 
 })();

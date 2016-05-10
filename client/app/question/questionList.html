@@ -1,1 +1,56 @@
-<div>This is the question view.</div>
+<ion-view view-title="Question List" cache-view="false">
+  <ion-nav-buttons side="right">
+    <a class="button button-small icon-right ion-ios-settings-strong" ng-click="popover.show($event)">
+    </a>
+  </ion-nav-buttons>
+  <ion-content scroll="false" class="question-list">
+    <div class="button-bar">
+      <a class="button button-small button-light icon-left ion-funnel">Filter</a>
+      <a class="button button-small button-light icon-left ion-arrow-swap sort">Sort</a>
+      <a class="button button-small button-light icon ion-navicon-round view-state" ng-click="vm.changeDisplayState()"
+         ng-class="{'rotate':vm.displayState==1}"></a>
+    </div>
+    <a class="button button-assertive icon ion-android-add floating-icon" ui-sref="question.edit"></a>
+    <!--<ion-scroll style="height: 100%" class="grid-view" ng-if="vm.displayState==0">
+      <div ng-repeat="question in vm.questions" class="row" ng-if="$even">
+        <div class="col" ng-init="qe=vm.questions[$index]">
+          <ion-flipper read="vm.qView.isViewed(qe)" gesture="none" ng-if="qe" question="qe" class="small" on-click="vm.viewQuestion(qe)"></ion-flipper>
+        </div>
+        <div class="col" ng-init="qo=vm.questions[$index+1]">
+          <ion-flipper read="vm.qView.isViewed(qo)" gesture="none" ng-if="qo" question="qo" class="small" on-click="vm.viewQuestion(qo)"></ion-flipper>
+        </div>
+      </div>
+      <ion-infinite-scroll
+        on-infinite="loadMore()"
+        distance="1%">
+      </ion-infinite-scroll>
+    </ion-scroll>-->
+
+    <ion-scroll class="list-view card-background" style="height: 100%" ng-if="vm.displayState==0">
+      <div ng-repeat="question in vm.questions" class="row">
+        <div class="col">
+          <ion-flipper question="question" editable="true" on-edit="vm.edit(question)"
+                       on-delete="vm.delete(question)" on-flip="vm.flipped(question)"
+                       toggle-favorite="vm.toggleFavorite(question)"
+                       ng-init="vm.init(question)"></ion-flipper>
+        </div>
+      </div>
+      <ion-infinite-scroll
+        on-infinite="loadMore()"
+        distance="1%">
+      </ion-infinite-scroll>
+    </ion-scroll>
+
+    <ion-slides class="single-view card-background" options="options" ng-if="vm.displayState==1">
+      <ion-slide-page ng-repeat="question in vm.questions">
+        <ion-flipper question="question" editable="true" on-edit="vm.edit(question)"
+                     on-delete="vm.delete(question)" on-flip="vm.flipped(question)"
+                     toggle-favorite="vm.toggleFavorite(question)"
+                     ng-init="vm.init(question)"></ion-flipper>
+      </ion-slide-page>
+    </ion-slides>
+
+
+  </ion-content>
+</ion-view>
+</script>

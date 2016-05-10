@@ -1,0 +1,11 @@
+<ion-view view-title="Question Detail" cache-view="false">
+  <ion-nav-back-button></ion-nav-back-button>
+  <ion-nav-buttons side="right">
+    <a class="button button-small icon-right ion-edit" ui-sref="question.edit">
+    </a>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-flipper read="vm.qView.isViewed(vm.question)" question="vm.question"></ion-flipper>
+  </ion-content>
+</ion-view>
+

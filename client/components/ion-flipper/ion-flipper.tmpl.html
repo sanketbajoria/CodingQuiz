@@ -1,0 +1,30 @@
+<div class="flip-container" ng-class="{'flip': flipped}" ng-style="style" ng-click="onClick({question: question});emitEvent('Clicked',$event)">
+  <div class="flipper clearfix">
+    <div class="front card item-text-wrapped" ng-style="frontStyle">
+      <div class="top">
+        <i class="icon ion-checkmark-circled icon-left" ng-if="question.read"></i>
+        <i class="icon ion-edit icon-right" ng-if="editable" ng-click="onEdit({question: question});emitEvent('Edited',$event)"></i>
+        <i class="icon ion-trash-a icon-right" ng-if="editable" ng-click="onDelete({question: question});emitEvent('Deleted',$event)"></i>
+      </div>
+      <div class="icon-holder">Q</div>
+      <div class="padding" ion-prism="question.question">
+      </div>
+      <div class="item item-divider footer">
+        <i class="icon favorite" ng-click="toggleFavorite({question:question});emitEvent('toggleFavorite', $event)" ng-class="question.favorite?'ion-ios-heart':'ion-ios-heart-outline'"></i>
+      </div>
+    </div>
+    <div class="back card item-text-wrapped success" ng-style="backStyle">
+      <div class="top">
+        <i class="icon ion-checkmark-circled icon-left" ng-if="question.read"></i>
+        <i class="icon ion-edit icon-right" ng-if="editable" ng-click="onEdit({question: question});emitEvent('Edited',$event)"></i>
+        <i class="icon ion-trash-a icon-right" ng-if="editable" ng-click="onDelete({question: question});emitEvent('Deleted',$event)"></i>
+      </div>
+      <div class="icon-holder">A</div>
+      <div class="answer padding" ion-prism="question.answer">
+      </div>
+      <div class="item item-divider footer">
+        <i class="icon favorite" ng-click="toggleFavorite($event)" ng-class="question.favorite?'ion-ios-heart':'ion-ios-heart-outline'"></i>
+      </div>
+    </div>
+  </div>
+</div>

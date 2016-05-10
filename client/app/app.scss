@@ -1,8 +1,4 @@
-$icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
-@import '../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
-@import '../bower_components/bootstrap-social/bootstrap-social.scss';
-$fa-font-path: "../bower_components/font-awesome/fonts";
-@import '../bower_components/font-awesome/scss/font-awesome';
+
 
 /**
  * App-wide Styles
@@ -19,7 +15,90 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 /* inject:scss */
 @import 'admin/admin.scss';
 @import 'main/main.scss';
+@import 'question/question.scss';
+@import 'tag/tag.scss';
 @import '../components/footer/footer.scss';
+@import '../components/ion-flipper/ion-flipper.scss';
 @import '../components/modal/modal.scss';
 @import '../components/oauth-buttons/oauth-buttons.scss';
 /* endinject */
+
+.login .placeholder-icon:first-child {
+  padding-right: 20px;
+}
+.login a:first-child{
+  float:left;
+}
+.login a:last-child{
+  float:right;
+}
+.social-buttons{
+  clear: both;
+  padding-top: 16px;
+}
+.logo{
+  text-align: center;
+  margin-bottom: 24px;
+}
+.logo img{
+  max-width: 30%;
+  width: 120px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+.error-container {
+  margin: 5px 0;
+}
+
+.error-container:last-child {
+  margin: 5px 0 0;
+}
+
+.error {
+  padding: 10px 16px;
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #555;
+  vertical-align: middle;
+}
+
+.error i {
+  font-size: 24px;
+  color: #B83E2C;
+  vertical-align: middle;
+}
+
+.last-error-container > .error {
+  padding: 10px 16px 0;
+}
+
+.has-errors {
+  border-bottom: 3px solid #B83E2C;
+}
+
+.no-errors {
+  border-bottom: 3px solid green;
+}
+
+.item-readonly{
+  background-color: #f8f8f8;
+}
+
+.floating-icon{
+   border-radius: 50%;
+   height: 48px;
+   width: 48px;
+   position: absolute;
+   right: 24px;
+   bottom: 24px;
+   box-shadow: 0 3px 10px rgba(0,0,0,0.23),0 3px 10px rgba(0,0,0,0.16);
+   z-index: 10000;
+   color: #fff;
+ }
+
+a.button.icon.floating-icon:before{
+  margin-top: 3px;
+  font-weight: 500;
+}

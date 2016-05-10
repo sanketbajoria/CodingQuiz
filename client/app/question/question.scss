@@ -1,0 +1,82 @@
+div[contenteditable=true] i{
+  font-style: italic;
+}
+div[contenteditable=true] ul,div[contenteditable=true] ol{
+  list-style: lower-alpha;
+}
+
+.question-detail div.editable{
+  max-height: 140px;
+  min-height: 70px;
+  padding: 8px 0px;
+  font-size: 14px;
+}
+
+.placeholder{
+  color: #aaa;
+  font-size: 14px;
+}
+
+.question-list .row{
+  padding: 0px;
+}
+
+/*
+.question-list .row .col{
+  padding: 3px 0px 6px 0px;
+}
+*/
+
+.question-list .list-view .row .col{
+  padding: 6px 0px 6px 0px;
+}
+
+.question-list .list-view .row:first-child .col{
+  padding-top: 6px;
+}
+
+.single-view{
+  padding-top: 6px;
+}
+
+/*
+.question-list .row:first-child .col{
+  padding-top: 1px;
+}
+
+.question-list .grid-view .row .col:first-child .flip-container{
+  padding-right: 2px;
+}
+.question-list .grid-view .row .col:last-child .flip-container{
+  padding-left: 2px;
+}
+*/
+
+.question-list .card-background{
+  background-color: #b6b6b6;
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+  font-size: 11px;
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+a.sort::before{
+  -ms-transform: rotate(-90deg); /* IE 9 */
+  -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+  transform: rotate(-90deg);
+}
+
+a.view-state.rotate::before{
+  -ms-transform: rotate(-90deg); /* IE 9 */
+  -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+  transform: rotate(-90deg);
+}
+
+.question-list .button-bar > .button{
+  border-radius: 0px;
+}

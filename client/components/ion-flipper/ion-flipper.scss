@@ -1,0 +1,187 @@
+.flip-container {
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  -o-perspective: 1000;
+  perspective: 1000;
+  padding: 3px 6px;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+}
+
+/*  UPDATED! flip the pane when hovered */
+
+.flip-container.flip .back {
+  -webkit-transform: rotateY(0deg);
+  -moz-transform: rotateY(0deg);
+  -o-transform: rotateY(0deg);
+  -ms-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+}
+.flip-container.flip .front {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+
+
+
+/*
+
+.flip-container.flip .flipper {
+  -webkit-transform: rotateY(-180deg);
+  -moz-transform: rotateY(-180deg);
+  -o-transform: rotateY(-180deg);
+  -ms-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
+}
+*/
+
+
+/* flip speed goes here */
+
+.flipper {
+  transition: 0.7s;
+  -webkit-transition: 0.7s;
+  -moz-transition: 0.7s;
+  -o-transition: 0.7s;
+  -ms-transition: 0.7s;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  position: relative;
+}
+/* hide back of pane during swap */
+
+.front,
+.back {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  transition: 0.7s;
+  -webkit-transition: 0.7s;
+  -moz-transition: 0.7s;
+  -o-transition: 0.7s;
+  -ms-transition: 0.7s;
+}
+
+/* front pane, placed above back */
+
+.front {
+  z-index: 2;
+  /* for firefox 31 */
+
+  -webkit-transform: rotateY(0deg);
+  -moz-transform: rotateY(0deg);
+  -o-transform: rotateY(0deg);
+  -ms-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+}
+/* back, initially hidden pane */
+
+.back {
+  -webkit-transform: rotateY(-180deg);
+  -moz-transform: rotateY(-180deg);
+  -o-transform: rotateY(-180deg);
+  -ms-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
+}
+
+.flip-container .padding {
+  padding: 3px 6px;
+}
+
+.flip-container,
+.front,
+.back {
+  margin: 0px;
+  width: 100%;
+  text-align: left;
+  padding-top: 0px;
+}
+
+.flip-container .top,
+.front .top,
+.back .top {
+  padding: 10px 10px;
+  height:44px;
+  font-size: 24px;
+}
+
+.flip-container .top,
+.flip-container .icon-holder,
+.front .top,
+.front .icon-holder,
+.back .top,
+.back .icon-holder {
+  background-color: #607D8B;
+  color: #fff;
+}
+
+.flip-container .icon-holder,
+.front .icon-holder,
+.back .icon-holder {
+  margin: -25px auto 0;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  padding: 10px 15px 10px;
+  font-size: large;
+  font-weight: 600;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.23),0 3px 10px rgba(0,0,0,0.16);
+}
+
+.back .icon-holder {
+  padding-left: 16px;
+}
+
+.front.success .top,
+.front.success .icon-holder,
+.back.success .top,
+.back.success .icon-holder {
+  background-color: #23AE89;
+  color: #fff;
+}
+
+
+.flip-container .footer{
+  border: none;
+  background-color: transparent;
+  padding: 5px 10px;
+}
+
+.flip-container .icon.favorite{
+  color: #FF5252;
+  font-size: 22px;
+  float:right;
+  text-shadow: 0 2px 7px rgba(0,0,0,0.23),0 3px 10px rgba(0,0,0,0.16);
+}
+
+.flip-container .top .icon:before{
+  text-shadow: 0 3px 10px rgba(0,0,0,0.23),0 3px 10px rgba(0,0,0,0.16);
+}
+
+.flip-container .top .icon.icon-left{
+  margin-right: 18px;
+  float: left;
+}
+
+.flip-container .top .icon.icon-right{
+  margin-left: 18px;
+  float: right;
+}

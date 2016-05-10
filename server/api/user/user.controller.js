@@ -49,6 +49,30 @@ export function create(req, res, next) {
 }
 
 /**
+ * Register a user with uniqueId
+ */
+export function registerUniqueId(req, res, next) {
+  var uniqueId = req.body.uniqueId;
+  User.findOne({uniqueId: uniqueId}).exec()
+    .then(user => {
+      if (!user) {
+        var newUser = new User(req.body);
+        newUser.provider = 'local';
+        newUser.role = 'user';
+        return newUser.save();
+      }
+      return user;
+    })
+    .then(user => {
+      var token = jwt.sign({_id: user._id}, config.secrets.session, {
+        expiresIn: 60 * 60 * 5
+      });
+      res.json({token});
+    })
+    .catch(validationError(res));
+}
+
+/**
  * Get a single user
  */
 export function show(req, res, next) {
